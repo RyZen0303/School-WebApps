@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portal - Benjamarachutit</title>
+  
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen bg-slate-900 text-slate-100">
+
+  <header class="w-full bg-slate-800 border-b border-slate-700/50 shadow-md">
+    <nav class="w-full max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+      <h1 class="font-bold text-xl text-amber-400 tracking-wide flex items-center gap-2">
+        <i data-lucide="graduation-cap" class="w-6 h-6"></i> BENJAMA PORTAL
+      </h1>
+      <div class="flex gap-2 sm:gap-6">
+        <button class="tab-btn active pb-1 font-semibold text-sm" onclick="switchTab(0)">
+          <i data-lucide="layout-grid" class="inline w-4 h-4 mr-1"></i>ศูนย์ข้อมูล
+        </button> 
+        <button class="tab-btn pb-1 font-semibold text-sm" onclick="switchTab(1)">
+          <i data-lucide="wrench" class="inline w-4 h-4 mr-1"></i>เครื่องมือทุ่นแรง
+        </button> 
+        <button class="tab-btn pb-1 font-semibold text-sm" onclick="switchTab(2)">
+          <i data-lucide="bar-chart-3" class="inline w-4 h-4 mr-1"></i>แดชบอร์ดเกรด
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="w-full max-w-7xl mx-auto px-4 py-8">
+    
+    <section id="page-0" class="tab-content">
+      <div class="mb-6 bg-slate-800/40 p-4 rounded-xl border border-slate-700/30">
+        <h2 class="font-bold text-2xl text-white flex items-center gap-2">
+          ยินดีต้อนรับสู่ระบบสารสนเทศนักเรียน 🐊
+        </h2>
+        <p id="current-date" class="text-slate-400 text-sm mt-1 font-medium"></p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg">
+          <h3 class="font-semibold text-lg text-amber-400 mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
+            <i data-lucide="megaphone" class="w-5 h-5"></i> ประกาศข่าวสารกิจกรรม
+          </h3>
+          <div class="space-y-4">
+            <div class="border-l-4 border-amber-500 bg-slate-700/30 pl-3 py-2 rounded-r">
+              <p class="text-sm font-medium text-slate-200">เตรียมเปิดระบบลงทะเบียน Remastered ภาคเรียนถัดไป</p>
+              <span class="text-slate-400 text-xs">22 มิถุนายน 2026</span>
+            </div>
+            <div class="border-l-4 border-blue-500 bg-slate-700/30 pl-3 py-2 rounded-r">
+              <p class="text-sm font-medium text-slate-200">เปิดทดสอบระบบเครือข่ายความเร็วสูงหลังบ้านเซิร์ฟเวอร์โรงเรียน</p>
+              <span class="text-slate-400 text-xs">20 มิถุนายน 2026</span>
+            </div>
+            <div class="border-l-4 border-emerald-500 bg-slate-700/30 pl-3 py-2 rounded-r">
+              <p class="text-sm font-medium text-slate-200">ขยายเวลาการส่งรายงานวิชาโครงงานคอมพิวเตอร์ระดับชั้นมัธยมปลาย</p>
+              <span class="text-slate-400 text-xs">18 มิถุนายน 2026</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg">
+          <h3 class="font-semibold text-lg text-emerald-400 mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
+            <i data-lucide="calendar" class="w-5 h-5"></i> ตารางเรียนและคาบเรียนวันนี้
+          </h3>
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="text-left border-b border-slate-600 text-slate-300">
+                <th class="py-2 font-semibold">วัน</th>
+                <th class="py-2 font-semibold">รายวิชา</th>
+                <th class="py-2 font-semibold">เวลาเรียน</th>
+              </tr>
+            </thead>
+            <tbody class="text-slate-300">
+              <tr class="border-b border-slate-700/40 hover:bg-slate-700/20 transition">
+                <td class="py-3 font-medium text-amber-400">จันทร์</td>
+                <td class="py-3">Computer Science (Python Backend)</td>
+                <td class="py-3 font-mono">08:30 - 10:20</td>
+              </tr>
+              <tr class="border-b border-slate-700/40 bg-slate-800/50 hover:bg-slate-700/20 transition">
+                <td class="py-3 font-medium text-amber-400">จันทร์</td>
+                <td class="py-3">Advanced Mathematics (Complexity O)</td>
+                <td class="py-3 font-mono">10:20 - 12:10</td>
+              </tr>
+              <tr class="border-b border-slate-700/40 hover:bg-slate-700/20 transition">
+                <td class="py-3 font-medium text-amber-400">จันทร์</td>
+                <td class="py-3">Physics Mechanics (Tank Simulation)</td>
+                <td class="py-3 font-mono">13:00 - 14:50</td>
+              </tr>
+              <tr class="bg-slate-800/50 hover:bg-slate-700/20 transition">
+                <td class="py-3 font-medium text-amber-400">จันทร์</td>
+                <td class="py-3">English Grammar (Future Tense)</td>
+                <td class="py-3 font-mono">14:50 - 16:40</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-1" class="tab-content hidden">
+      <h2 class="font-bold text-2xl text-white mb-6 flex items-center gap-2">
+        <i data-lucide="sliders" class="w-6 h-6 text-amber-400"></i> กล่องเครื่องมืออัจฉริยะสำหรับนักเรียน
+      </h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        
+        <div class="bg-slate-800 border border-slate-700 tool-card rounded-xl p-6 shadow-lg flex flex-col justify-between">
+          <div>
+            <h3 class="font-semibold text-lg text-amber-400 mb-3 flex items-center gap-2">
+              <i data-lucide="calculator" class="w-5 h-5"></i> คำนวณเกรดจำลอง (GPA)
+            </h3>
+            <div id="gpa-inputs" class="space-y-2 mb-3">
+              <div class="flex gap-2">
+                <input type="number" placeholder="หน่วยกิต" class="w-1/2 px-3 py-2 rounded bg-slate-700 text-white text-sm border border-slate-600 focus:outline-none focus:border-amber-400 font-medium" min="1" max="6"> 
+                <input type="number" placeholder="เกรด (0-4)" class="w-1/2 px-3 py-2 rounded bg-slate-700 text-white text-sm border border-slate-600 focus:outline-none focus:border-amber-400 font-medium" min="0" max="4" step="0.5">
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="flex gap-2 mb-3">
+              <button onclick="addGpaRow()" class="text-xs px-3 py-2 rounded bg-slate-700 text-slate-200 hover:bg-slate-600 border border-slate-600 transition font-medium w-full">+ เพิ่มรายวิชา</button> 
+              <button onclick="calcGpa()" class="text-xs px-3 py-2 rounded bg-amber-500 text-slate-900 hover:bg-amber-400 transition font-bold w-full">ประมวลผล GPA</button>
+            </div>
+            <div class="bg-slate-900/60 p-3 rounded border border-slate-700/50">
+              <p id="gpa-result" class="text-amber-400 font-mono font-bold text-xl text-center">GPA: --</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-800 border border-slate-700 tool-card rounded-xl p-6 shadow-lg flex flex-col justify-between text-center">
+          <h3 class="font-semibold text-lg text-blue-400 mb-3 flex items-center justify-center gap-2">
+            <i data-lucide="timer" class="w-5 h-5"></i> นาฬิกาจับเวลาทดสอบ
+          </h3>
+          <p id="timer-display" class="text-4xl font-mono font-bold text-white my-6 bg-slate-900/80 py-3 rounded-xl border border-slate-700 tracking-widest">00:00:00</p>
+          <div class="flex justify-center gap-2">
+            <button onclick="startTimer()" class="w-full py-2 rounded bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-500 shadow-md shadow-emerald-900/20 transition">Start</button> 
+            <button onclick="stopTimer()" class="w-full py-2 rounded bg-red-600 text-white text-xs font-bold hover:bg-red-500 shadow-md shadow-red-900/20 transition">Stop</button> 
+            <button onclick="resetTimer()" class="w-full py-2 rounded bg-slate-700 text-slate-200 text-xs font-bold hover:bg-slate-600 border border-slate-600 transition">Reset</button>
+          </div>
+        </div>
+
+        <div class="bg-slate-800 border border-slate-700 tool-card rounded-xl p-6 shadow-lg flex flex-col justify-between">
+          <div>
+            <h3 class="font-semibold text-lg text-purple-400 mb-3 flex items-center gap-2">
+              <i data-lucide="help-circle" class="w-5 h-5"></i> ควิซความรู้สปีดรัน
+            </h3>
+            <p id="quiz-question" class="text-slate-200 font-medium mb-4 text-sm bg-slate-900/40 p-3 rounded border border-slate-700/30"></p>
+            <div id="quiz-choices" class="space-y-2"></div>
+          </div>
+          <p id="quiz-feedback" class="mt-4 text-sm font-bold text-center h-5"></p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="page-2" class="tab-content hidden">
+      <h2 class="font-bold text-2xl text-white mb-6 flex items-center gap-2">
+        <i data-lucide="bar-chart-2" class="w-6 h-6 text-amber-400"></i> แดชบอร์ดสรุปผลการเรียนสะสม (Analytics)
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-4 mb-6">
+        <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 text-center shadow-md">
+          <p class="text-slate-400 text-xs uppercase tracking-wider font-semibold mb-1">เกรดเฉลี่ยปัจจุบัน (GPAX)</p>
+          <p class="text-3xl font-mono font-bold text-amber-400">3.42</p>
+        </div>
+        <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 text-center shadow-md">
+          <p class="text-slate-400 text-xs uppercase tracking-wider font-semibold mb-1">หน่วยกิตสะสมที่ผ่านการอนุมัติ</p>
+          <p class="text-3xl font-mono font-bold text-emerald-400">68</p>
+        </div>
+        <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 text-center shadow-md">
+          <p class="text-slate-400 text-xs uppercase tracking-wider font-semibold mb-1">สถานะกำหนดการสอบปลายภาค</p>
+          <p class="text-sm font-semibold text-rose-400 mt-2 flex items-center justify-center gap-1">
+            <i data-lucide="alert-circle" class="w-4 h-4"></i> เริ่มสอบในอีก 14 วันข้างหน้า
+          </p>
+        </div>
+      </div>
+      
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg">
+        <h3 class="font-semibold text-lg text-white mb-4 flex items-center gap-2">
+          <i data-lucide="activity" class="w-5 h-5 text-amber-400"></i> กราฟเส้นแสดงแนวโน้มเกรดเฉลี่ยแต่ละภาคเรียน
+        </h3>
+        <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/50">
+          <canvas id="gradeChart" class="w-full"></canvas>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
