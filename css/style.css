@@ -1,0 +1,66 @@
+/* คุมฟอนต์และการตั้งค่าเอฟเฟกต์แอนิเมชันให้เนียนตา */
+body {
+    font-family: 'Libre Franklin', sans-serif;
+}
+
+/* เอฟเฟกต์ความนุ่มนวลของปุ่มแท็บสลับเมนู */
+.tab-btn {
+    color: #94a3b8;
+    position: relative;
+    transition: all 0.25s ease;
+}
+
+.tab-btn:hover {
+    color: #f59e0b;
+}
+
+.tab-btn.active {
+    color: #f59e0b;
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #f59e0b;
+    border-radius: 99px;
+}
+
+/* เอฟเฟกต์ลอยตัวเมื่อเอาเมาส์จิ้มที่การ์ดเครื่องมือ (Micro-interactions) */
+.tool-card {
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
+}
+
+.tool-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    border-color: #475569;
+}
+
+/* ดีไซน์ปุ่มช้อยส์คำถามควิซความรู้ */
+.choice-btn {
+    transition: all 0.15s ease;
+}
+
+.choice-btn:hover {
+    background-color: #475569 !important;
+    color: #ffffff !important;
+    transform: scale(1.01);
+}
+
+.choice-btn.correct {
+    background-color: #10b981 !important;
+    border-color: #059669 !important;
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.choice-btn.wrong {
+    background-color: #ef4444 !important;
+    border-color: #dc2626 !important;
+    color: #ffffff !important;
+    font-weight: 600;
+}
