@@ -15,12 +15,21 @@ lucide.createIcons();
 // ==========================================
 // 2. ระบบสลับหน้าแท็บเมนูแบบไร้รอยต่อ (Tab Switching)
 // ==========================================
-const pages = [document.getElementById('page-0'), document.getElementById('page-1'), document.getElementById('page-2')];
-const tabs = document.querySelectorAll('.tab-btn');
 
 function switchTab(targetIndex) {
-    pages.forEach((page, idx) => page.classList.toggle('hidden', idx !== targetIndex));
-    tabs.forEach((tab, idx) => tab.classList.toggle('active', idx === targetIndex));
+    // 💡 ย้ายการดึงค่ามาไว้ "ในฟังก์ชัน" เพื่อให้มันวิ่งไปจับปุ่ม HTML สดๆ ทุกครั้งที่กดคลิก
+    const currentPages = [document.getElementById('page-0'), document.getElementById('page-1'), document.getElementById('page-2')];
+    const currentTabs = document.querySelectorAll('.tab-btn');
+
+    // ลอจิกสลับซ่อน/แสดงหน้าเพจ
+    currentPages.forEach((page, idx) => {
+        if (page) page.classList.toggle('hidden', idx !== targetIndex);
+    });
+    
+    // ลอจิกสลับคลาส active เพื่อให้เส้นใต้สีส้มของมึงทำงาน
+    currentTabs.forEach((tab, idx) => {
+        tab.classList.toggle('active', idx === targetIndex);
+    });
     
     // ถ้าสลับมาที่แดชบอร์ด (หน้า 3) ให้วาดกราฟใหม่เพื่อให้ขนาดสเกลตรงกับหน้าจอคอมปัจจุบัน
     if (targetIndex === 2) {
