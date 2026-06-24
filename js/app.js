@@ -128,12 +128,12 @@ function checkAnswer(selectedIndex, clickedButton) {
     
     if (selectedIndex === correctAnswerIndex) {
         clickedButton.classList.add('correct');
-        feedbackElement.textContent = '✓ ถูกต้อง! ลอจิกมึงโคตรเฉียบสัส';
+        feedbackElement.textContent = '✓ ถูกต้อง!';
         feedbackElement.style.color = '#4ade80';
     } else {
         clickedButton.classList.add('wrong');
         choiceButtons[correctAnswerIndex].classList.add('correct');
-        feedbackElement.textContent = '✗ ผิด! บั๊กแดกลอจิกแล้วมึง';
+        feedbackElement.textContent = '✗ ผิด!';
         feedbackElement.style.color = '#f87171';
     }
     
