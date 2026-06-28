@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔐 ยืนยันตัวตนขั้นสอง - ดูผลการเรียน</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+</head>
+<body class="min-h-screen bg-slate-900 text-slate-100 flex items-center justify-center p-4">
+
+  <div class="w-full max-w-md bg-slate-800 border border-slate-700 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
+    <div class="absolute -top-10 -right-10 w-32 h-32 bg-yellow-500/10 rounded-full blur-2xl"></div>
+
+    <div class="text-center mb-8">
+      <div class="w-16 h-16 bg-yellow-500/10 text-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4 border border-yellow-500/20">
+        <i data-lucide="lock" class="w-8 h-8"></i>
+      </div>
+      <h2 class="font-bold text-2xl text-white tracking-wide">ด่านยืนยันสิทธิ์นักเรียน</h2>
+      <p class="text-slate-400 text-sm mt-2">โปรดกรอกรหัสนักเรียนและวันเกิดของคุณเพื่อเข้าถึงใบเกรด</p>
+    </div>
+
+    <form action="/grade-auth/verify" method="POST" class="space-y-5">
+      <div>
+        <label class="block text-slate-300 text-sm font-semibold mb-2">รหัสประจำตัวนักเรียน</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500"><i data-lucide="user" class="w-4 h-4"></i></span>
+          <input type="text" name="student_id" required placeholder="เช่น 99999" class="w-full pl-10 pr-4 py-2.5 rounded-lg bg-slate-900 border border-slate-700 text-white placeholder-slate-600 focus:outline-none focus:border-yellow-400 transition">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-slate-300 text-sm font-semibold mb-2">วันเกิด (รูปแบบ วว/ดด/ปปปป)</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500"><i data-lucide="calendar" class="w-4 h-4"></i></span>
+          <input type="text" name="birthdate" required placeholder="เช่น 27/06/2552" class="w-full pl-10 pr-4 py-2.5 rounded-lg bg-slate-900 border border-slate-700 text-white placeholder-slate-600 focus:outline-none focus:border-yellow-400 transition">
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button type="submit" class="w-full py-3 bg-yellow-400 text-slate-900 font-bold rounded-lg hover:bg-yellow-300 active:scale-[0.98] transition-all duration-150 shadow-lg shadow-yellow-500/10 flex items-center justify-center gap-2">
+          <i data-lucide="key-round" class="w-4 h-4"></i> ปลดล็อกดูผลการเรียน
+        </button>
+      </div>
+    </form>
+
+    <div class="text-center mt-6">
+      <a href="/portal" class="text-slate-500 hover:text-slate-400 text-sm font-medium transition">⬅️ ย้อนกลับหน้าหลักพอร์ทัล</a>
+    </div>
+  </div>
+
+  <script>
+    if (typeof lucide !== 'undefined') { lucide.createIcons(); }
+  </script>
+</body>
+</html>
