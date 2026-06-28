@@ -156,78 +156,101 @@ function checkAnswer(selectedIndex, clickedButton) {
 renderQuiz();
 
 // ==========================================
-// 6. ระบบวาดกราฟเส้นสถิติด้วย Native Canvas API
+// 6. ระบบวาดกราฟเส้นสถิติด้วย Native Canvas API (เวอร์ชัน Dynamic ดึงจาก Python หลังบ้าน)
 // ==========================================
-function drawChart() {
+async function drawChart() {
     const canvas = document.getElementById('gradeChart');
     if (!canvas || !canvas.getContext) return;
     
     const ctx = canvas.getContext('2d');
-    const width = canvas.width = canvas.offsetWidth;
-    const height = canvas.height = 240;
     
-    // 💡 คลังข้อมูลเกรดตัวแปร (เดี๋ยวเขียนเชื่อม Fetch API ดึงค่าจาก Python มาเสียบตรงนี้)
-    const grades = [3.20, 3.40, 3.10, 3.50, 3.42];
-    const labels = ['ม.4 เทอม 1', 'ม.4 เทอม 2', 'ม.5 เทอม 1', 'ม.5 เทอม 2', 'ปัจจุบัน'];
-    
-    const padding = 50;
-    const chartWidth = width - padding * 2;
-    const chartHeight = height - padding * 2;
-    
-    ctx.clearRect(0, 0, width, height);
-    
-    // วาดเส้นแกนกราฟตารางหลังบ้าน
-    ctx.strokeStyle = '#334155'; 
-    ctx.lineWidth = 1;
-    ctx.beginPath(); 
-    ctx.moveTo(padding, padding); 
-    ctx.lineTo(padding, height - padding); 
-    ctx.lineTo(width - padding, height - padding); 
-    ctx.stroke();
-    
-    const stepX = chartWidth / (grades.length - 1);
-    
-    // วาดโครงเส้นกราฟพัฒนาการ (Line Chart)
-    ctx.strokeStyle = '#f59e0b'; 
-    ctx.lineWidth = 3; 
-    ctx.beginPath();
-    
-    grades.forEach((grade, i) => {
-        const x = padding + i * stepX;
-        // ลอจิกแปลงเกรด (ช่วง 2.0 - 4.0) ให้ออกมาเป็นพิกัดความสูงบนหน้าจอ Canvas Y
-        const y = height - padding - ((grade - 2) / 2) * chartHeight;
+    try {
+        // 🚀 1. ยิง Fetch API ไปดึงข้อมูลเกรดคำนวณสดๆ จาก Python (FastAPI) 
+        const response = await fetch('/api/student-gpa');
+        if (!response.ok) throw new Error('ไม่สามารถดึงข้อมูลเกรดจากหลังบ้านได้มึง');
+        const gpaData = await response.json();
+
+        console.log("📊 ข้อมูลเกรดที่ดึงมาได้จากหลังบ้าน:", gpaData);
         
-        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-    });
-    ctx.stroke();
-    
-    // พ่นข้อความทศนิยมตัวเลขเกรดและจุดพิกัดวงกลมสีทอง
-    grades.forEach((grade, i) => {
-        const x = padding + i * stepX;
-        const y = height - padding - ((grade - 2) / 2) * chartHeight;
+        // ดักกรณีถ้าไม่มีข้อมูลเกรด หรือยังไม่ได้ล็อกอิน ให้เคลียร์จอแล้วหยุดทำงาน
+        if (!gpaData || Object.keys(gpaData).length === 0) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            return;
+        }
+
+        // 2. แกะข้อมูล Object ผูกดิกชันนารี {"เทอม": เกรด} ออกมาเป็น Array
+        const labels = Object.keys(gpaData);   // ดึงชื่อเทอมไปทำแกน X -> ['ม.4-1', 'ม.4-2', 'ม.5-1']
+        const grades = Object.values(gpaData); // ดึงตัวเลขเกรดไปทำแกน Y -> [3.12, 3.37, 3.81]
+
+        // 🔥 [ของแถมโอเวอร์คิล] คำนวณหาค่าเฉลี่ยสะสม (GPAX) จริงของเด็กคนนี้ แล้วพ่นลงการ์ดสรุปผลหน้าบ้าน
+        const sumGpa = grades.reduce((total, val) => total + val, 0);
+        const gpaxResult = (sumGpa / grades.length).toFixed(2);
+        const gpaxCard = document.getElementById('gpax-display');
+        if (gpaxCard) gpaxCard.textContent = gpaxResult;
+
+        // 3. กำหนดขนาดพื้นที่วาดภาพ Canvas
+        const width = canvas.width = canvas.offsetWidth;
+        const height = canvas.height = 240;
+        const padding = 50;
+        const chartWidth = width - padding * 2;
+        const chartHeight = height - padding * 2;
         
-        // ถมฟอนต์ตัวอักษรกำกับแกน X และจุดเกรด
-        ctx.fillStyle = '#94a3b8'; 
-        ctx.font = '500 11px Libre Franklin';
-        ctx.textAlign = 'center';
+        ctx.clearRect(0, 0, width, height);
         
-        // พ่นข้อความหัวข้อเทอมด้านล่างแกน
-        ctx.fillText(labels[i], x, height - 15);
-        // พ่นตัวเลขเกรดลอยเหนือจุดวงกลม
-        ctx.fillStyle = '#ffffff';
-        ctx.fillText(grade.toFixed(2), x, y - 14);
-        
-        // เจาะพิกัดพ่นจุดวงกลมสีส้มทอง
+        // วาดเส้นแกนกราฟตารางพื้นหลัง
+        ctx.strokeStyle = '#334155'; 
+        ctx.lineWidth = 1;
         ctx.beginPath(); 
-        ctx.arc(x, y, 5, 0, Math.PI * 2); 
-        ctx.fillStyle = '#f59e0b'; 
-        ctx.fill();
-        
-        // วาดขอบวงกลมสีขาวล้อมรอบจุดอีกชั้นเพิ่มความหรู
-        ctx.strokeStyle = '#ffffff';
-        ctx.lineWidth = 1.5;
+        ctx.moveTo(padding, padding); 
+        ctx.lineTo(padding, height - padding); 
+        ctx.lineTo(width - padding, height - padding); 
         ctx.stroke();
-    });
+        
+        // คำนวณระยะห่างระหว่างจุดแกน X (ดักบั๊กเผื่อเด็กมีข้อมูลเทอมเดียว)
+        const stepX = grades.length > 1 ? chartWidth / (grades.length - 1) : chartWidth;
+        
+        // 4. เริ่มวาดโครงเส้นกราฟพัฒนาการ (Line Chart)
+        ctx.strokeStyle = '#f59e0b'; 
+        ctx.lineWidth = 3; 
+        ctx.beginPath();
+        
+        grades.forEach((grade, i) => {
+            const x = padding + i * stepX;
+            // ลอจิกแปลงเกรด (ช่วง 2.0 - 4.0) ให้สัมพันธ์กับความสูงแนวตั้งแกน Y ของจอ Canvas
+            const y = height - padding - ((grade - 2) / 2) * chartHeight;
+            
+            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+        
+        // 5. ถมฟอนต์ข้อความตัวอักษรเกรดกำกับและจุดพิกัดวงกลมสีทอง
+        grades.forEach((grade, i) => {
+            const x = padding + i * stepX;
+            const y = height - padding - ((grade - 2) / 2) * chartHeight;
+            
+            ctx.fillStyle = '#94a3b8'; 
+            ctx.font = '500 11px Libre Franklin';
+            ctx.textAlign = 'center';
+            
+            // พ่นข้อความชื่อภาคเรียนด้านล่าง
+            ctx.fillText(labels[i], x, height - 15);
+            // พ่นตัวเลขเกรดจริงลอยเหนือหัวจุดวงกลม
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText(grade.toFixed(2), x, y - 14);
+            
+            // เจาะพ่นวงกลมสีส้มทองประกายขาวครอบ
+            ctx.beginPath(); 
+            ctx.arc(x, y, 5, 0, Math.PI * 2); 
+            ctx.fillStyle = '#f59e0b'; 
+            ctx.fill();
+            
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+        });
+    } catch (error) {
+        console.error('❌ [Frontend Error] โหลดข้อมูลมาวาดกราฟไม่ผ่านมึง:', error);
+    }
 }
 
 // โหลดกราฟครั้งแรกและผูกสัญญาระบบเมื่อมีการขยายหน้าจอเบราว์เซอร์ (Responsive redraw)
