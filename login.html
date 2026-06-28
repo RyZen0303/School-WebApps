@@ -11,7 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Libre Franklin', sans-serif; }
-    /* เอฟเฟกต์แสงนีออนจางๆ หลังกล่องล็อกอิน เพิ่มความหรูหราแบบ Tech */
+    
+    /* เอฟเฟกต์แสงนีออนหลังกล่องล็อกอิน ปรับให้ชัดขึ้นบนมือถือ */
     .glow-bg {
       position: absolute;
       top: 50%;
@@ -19,12 +20,56 @@
       transform: translate(-50%, -50%);
       width: 450px;
       height: 450px;
-      background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, rgba(0,0,0,0) 70%);
+      background: radial-gradient(circle, rgba(245,158,11,0.15) 0%, rgba(0,0,0,0) 70%);
       z-index: 0;
       pointer-events: none;
     }
 
-    /* ซ่อนปุ่มเปิดตาที่เป็นฟีเจอร์เดฟอลต์ของ Edge และ Chrome เพื่อไม่ให้ขึ้นมาซ้อนเด๋อ */
+    /* --- อัปเกรดระบบแสงเหนือ เร่งสีชัดสู้จอมือถือ --- */
+    .aurora-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -20; /* อยู่หลังสุด */
+      overflow: hidden;
+      filter: blur(70px); /* ลดเบลอลงนิดนึงเพื่อให้สีเข้มข้นขึ้น ไม่จางหายบนมือถือ */
+      opacity: 0.85;       /* อัดความโปร่งแสงขึ้นมาให้ชัดเจนสะใจ */
+      pointer-events: none;
+    }
+
+    .aurora-element {
+      position: absolute;
+      width: 90vw;
+      height: 90vh;
+      border-radius: 50%;
+      mix-blend-mode: screen;
+      animation: move 18s infinite alternate ease-in-out;
+    }
+
+    /* เพิ่มความเข้มข้นของ Alpha Channel (ค่าตัวสุดท้ายของ rgba) เพื่อเพิ่มมิติสี */
+    .aurora-1 { background: rgba(20, 184, 166, 0.6); top: -15%; left: -15%; animation-delay: 0s; }
+    .aurora-2 { background: rgba(99, 102, 241, 0.55); bottom: -15%; right: -15%; animation-delay: -4s; }
+    .aurora-3 { background: rgba(245, 158, 11, 0.3); top: 15%; right: 5%; animation-delay: -8s; }
+    .aurora-4 { background: rgba(168, 85, 247, 0.3); bottom: 5%; left: 5%; animation-delay: -12s; }
+
+    @keyframes move {
+      from { transform: translate(0, 0) scale(1) rotate(0deg); }
+      to { transform: translate(15%, 15%) scale(1.15) rotate(25deg); }
+    }
+
+    /* ฟิล์ม Noise เม็ดทรายเนียน ๆ แบบเว็บ Apple */
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: -10;
+      opacity: 0.04;
+      pointer-events: none;
+      background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+    }
+
+    /* ซ่อนปุ่มเปิดตาฟีเจอร์เดฟอลต์เพื่อไม่ให้ซ้อนกัน */
     input::-ms-reveal,
     input::-ms-clear {
       display: none !important;
@@ -33,9 +78,17 @@
 </head>
 <body class="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center px-4 relative overflow-hidden">
 
+  <div class="aurora-container">
+    <div class="aurora-element aurora-1"></div>
+    <div class="aurora-element aurora-2"></div>
+    <div class="aurora-element aurora-3"></div>
+    <div class="aurora-element aurora-4"></div>
+  </div>
+  <div class="noise"></div>
+
   <div class="glow-bg"></div>
 
-  <div class="w-full max-w-md bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-8 shadow-2xl relative z-10">
+  <div class="w-full max-w-md bg-slate-900/70 backdrop-blur-2xl border border-slate-800/80 rounded-2xl p-8 shadow-2xl relative z-10">
     
     <div class="text-center mb-6">
       <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-amber-500/10 border border-amber-500/20 mb-4 shadow-inner shadow-amber-500/5">
@@ -123,26 +176,20 @@
       lucide.createIcons();
     }
 
-    // 2. ระบบสลับตาแบบตรงลอจิก (แก้สลับเครื่องหมายเรียบร้อย)
+    // 2. ระบบสลับตาแบบตรงลอจิก
     const passwordInput = document.getElementById("password");
     const toggleButton = document.getElementById("toggle-password");
     const eyeOpenIcon = document.getElementById("eye-open-icon");
     const eyeCloseIcon = document.getElementById("eye-close-icon");
 
     toggleButton.addEventListener("click", function() {
-      // ถ้าตอนนี้เป็น "password" (เป็นจุดๆ และหน้าจอโชว์รูปตาปกติ)
       if (passwordInput.type === "password") {
-        passwordInput.type = "text"; // สลับเป็นโหมดโชว์ตัวหนังสือ
-        
-        // ในเมื่อโชว์ตัวหนังสือแล้ว ปุ่มต่อไปต้องเปลี่ยนเป็น "รูปตาโดนขีดฆ่า" เพื่อรอให้กดซ่อน
+        passwordInput.type = "text";
         eyeOpenIcon.classList.add("hidden");
         eyeCloseIcon.classList.remove("hidden");
       } 
-      // ถ้าตอนนี้เป็น "text" (เห็นตัวหนังสือชัดเจน และหน้าจอโชว์รูปตาโดนขีดฆ่า)
       else {
-        passwordInput.type = "password"; // สลับกลับไปซ่อนเป็นจุดๆ
-        
-        // ในเมื่อซ่อนเป็นจุดๆ แล้ว ปุ่มต่อไปต้องเปลี่ยนกลับเป็น "รูปตาเปิดปกติ" เพื่อรอให้กดดู
+        passwordInput.type = "password";
         eyeOpenIcon.classList.remove("hidden");
         eyeCloseIcon.classList.add("hidden");
       }
