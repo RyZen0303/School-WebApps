@@ -11,8 +11,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Libre Franklin', sans-serif; }
+<<<<<<< HEAD
     
     /* เอฟเฟกต์แสงนีออนหลังกล่องล็อกอิน ปรับให้ชัดขึ้นบนมือถือ */
+=======
+    /* เอฟเฟกต์แสงนีออนจางๆ หลังกล่องล็อกอิน เพิ่มความหรูหราแบบ Tech */
+>>>>>>> 18db70825c2b585a71e5502bf221f313295c17a3
     .glow-bg {
       position: absolute;
       top: 50%;
@@ -20,11 +24,16 @@
       transform: translate(-50%, -50%);
       width: 450px;
       height: 450px;
+<<<<<<< HEAD
       background: radial-gradient(circle, rgba(245,158,11,0.15) 0%, rgba(0,0,0,0) 70%);
+=======
+      background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, rgba(0,0,0,0) 70%);
+>>>>>>> 18db70825c2b585a71e5502bf221f313295c17a3
       z-index: 0;
       pointer-events: none;
     }
 
+<<<<<<< HEAD
     /* --- อัปเกรดระบบแสงเหนือ เร่งสีชัดสู้จอมือถือ --- */
     .aurora-container {
       position: fixed;
@@ -70,6 +79,9 @@
     }
 
     /* ซ่อนปุ่มเปิดตาฟีเจอร์เดฟอลต์เพื่อไม่ให้ซ้อนกัน */
+=======
+    /* ซ่อนปุ่มเปิดตาที่เป็นฟีเจอร์เดฟอลต์ของ Edge และ Chrome เพื่อไม่ให้ขึ้นมาซ้อนเด๋อ */
+>>>>>>> 18db70825c2b585a71e5502bf221f313295c17a3
     input::-ms-reveal,
     input::-ms-clear {
       display: none !important;
@@ -78,6 +90,7 @@
 </head>
 <body class="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center px-4 relative overflow-hidden">
 
+<<<<<<< HEAD
   <div class="aurora-container">
     <div class="aurora-element aurora-1"></div>
     <div class="aurora-element aurora-2"></div>
@@ -89,6 +102,11 @@
   <div class="glow-bg"></div>
 
   <div class="w-full max-w-md bg-slate-900/70 backdrop-blur-2xl border border-slate-800/80 rounded-2xl p-8 shadow-2xl relative z-10">
+=======
+  <div class="glow-bg"></div>
+
+  <div class="w-full max-w-md bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-8 shadow-2xl relative z-10">
+>>>>>>> 18db70825c2b585a71e5502bf221f313295c17a3
     
     <div class="text-center mb-6">
       <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-amber-500/10 border border-amber-500/20 mb-4 shadow-inner shadow-amber-500/5">
@@ -176,13 +194,18 @@
       lucide.createIcons();
     }
 
+<<<<<<< HEAD
     // 2. ระบบสลับตาแบบตรงลอจิก
+=======
+    // 2. ระบบสลับตาแบบตรงลอจิก (แก้สลับเครื่องหมายเรียบร้อย)
+>>>>>>> 18db70825c2b585a71e5502bf221f313295c17a3
     const passwordInput = document.getElementById("password");
     const toggleButton = document.getElementById("toggle-password");
     const eyeOpenIcon = document.getElementById("eye-open-icon");
     const eyeCloseIcon = document.getElementById("eye-close-icon");
 
     toggleButton.addEventListener("click", function() {
+<<<<<<< HEAD
       if (passwordInput.type === "password") {
         passwordInput.type = "text";
         eyeOpenIcon.classList.add("hidden");
@@ -190,6 +213,21 @@
       } 
       else {
         passwordInput.type = "password";
+=======
+      // ถ้าตอนนี้เป็น "password" (เป็นจุดๆ และหน้าจอโชว์รูปตาปกติ)
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text"; // สลับเป็นโหมดโชว์ตัวหนังสือ
+        
+        // ในเมื่อโชว์ตัวหนังสือแล้ว ปุ่มต่อไปต้องเปลี่ยนเป็น "รูปตาโดนขีดฆ่า" เพื่อรอให้กดซ่อน
+        eyeOpenIcon.classList.add("hidden");
+        eyeCloseIcon.classList.remove("hidden");
+      } 
+      // ถ้าตอนนี้เป็น "text" (เห็นตัวหนังสือชัดเจน และหน้าจอโชว์รูปตาโดนขีดฆ่า)
+      else {
+        passwordInput.type = "password"; // สลับกลับไปซ่อนเป็นจุดๆ
+        
+        // ในเมื่อซ่อนเป็นจุดๆ แล้ว ปุ่มต่อไปต้องเปลี่ยนกลับเป็น "รูปตาเปิดปกติ" เพื่อรอให้กดดู
+>>>>>>> 18db70825c2b585a71e5502bf221f313295c17a3
         eyeOpenIcon.classList.remove("hidden");
         eyeCloseIcon.classList.add("hidden");
       }
@@ -197,4 +235,8 @@
   });
 </script>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 18db70825c2b585a71e5502bf221f313295c17a3
