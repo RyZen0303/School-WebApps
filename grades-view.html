@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏆 คลังผลการเรียนสะสมอย่างเป็นทางการ - Benjamarachutit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', 'Chakra Petch', sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 p-4 sm:p-6 flex flex-col justify-between">
+
+  <div class="w-full max-w-4xl mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl mt-4 relative overflow-visible">
+    <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-amber-500 via-yellow-400 to-emerald-500 rounded-t-2xl"></div>
+
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-slate-800 pb-6 mb-6 gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 bg-amber-500/10 text-amber-400 rounded-xl flex items-center justify-center border border-amber-500/20">
+          <i data-lucide="shield-check" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold text-white tracking-wide">คลังผลการเรียนรายบุคคล</h1>
+          <p class="text-xs text-slate-400 mt-0.5">ระบบสารสนเทศความปลอดภัยสูง | โรงเรียนเบญจมราชูทิศ</p>
+        </div>
+      </div>
+      <a href="/portal" class="w-full sm:w-auto px-4 py-2 bg-slate-800 text-slate-300 hover:bg-slate-700 rounded-xl text-sm font-medium transition flex items-center justify-center gap-1.5 border border-slate-700/60">
+        <i data-lucide="layout-dashboard" class="w-4 h-4"></i> กลับหน้าพอร์ทัล
+      </a>
+    </div>
+
+    <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-5 mb-8">
+      <h2 class="text-sm font-semibold text-slate-400 mb-4 flex items-center gap-1.5">
+        <i data-lucide="mouse-pointer-click" class="w-4 h-4 text-amber-400"></i> คลิกเลือกระดับชั้นเพื่อเลือกเทอม
+      </h2>
+      
+      <div class="space-y-4">
+        <div>
+          <span class="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-1.5">ระดับมัธยมศึกษาตอนต้น</span>
+          <div class="grid grid-cols-3 gap-3">
+            
+            <div class="relative inline-block text-left">
+              <div id="popover-M1" class="hidden absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-slate-800 border border-slate-700 p-1.5 rounded-xl shadow-2xl gap-1 z-20 whitespace-nowrap">
+                <button onclick="loadGrades('ม.1', 1)" class="px-3 py-1.5 text-xs font-bold bg-slate-900 hover:bg-emerald-500 hover:text-slate-950 rounded-lg transition">เทอม 1</button>
+                <button onclick="loadGrades('ม.1', 2)" class="px-3 py-1.5 text-xs font-bold bg-slate-900 hover:bg-emerald-500 hover:text-slate-950 rounded-lg transition">เทอม 2</button>
+              </div>
+              <button onclick="toggleTermMenu('M1')" id="btn-M1" class="grade-btn w-full py-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-sm font-bold rounded-xl transition flex items-center justify-center gap-1">
+                ม.1 <i data-lucide="chevron-up" class="w-3.5 h-3.5 opacity-50"></i>
+              </button>
+            </div>
+
+            <div class="relative inline-block text-left">
+              <div id="popover-M2" class="hidden absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-slate-800 border border-slate-700 p-1.5 rounded-xl shadow-2xl gap-1 z-20 whitespace-nowrap">
+                <button onclick="loadGrades('ม.2', 1)" class="px-3 py-1.5 text-xs font-bold bg-slate-900 hover:bg-emerald-500 hover:text-slate-950 rounded-lg transition">เทอม 1</button>
+                <button onclick="loadGrades('ม.2', 2)" class="px-3 py-1.5 text-xs font-bold bg-slate-900 hover:bg-emerald-500 hover:text-slate-950 rounded-lg transition">เทอม 2</button>
+              </div>
+              <button onclick="toggleTermMenu('M2')" id="btn-M2" class="grade-btn w-full py-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-sm font-bold rounded-xl transition flex items-center justify-center gap-1">
+                ม.2 <i data-lucide="chevron-up" class="w-3.5 h-3.5 opacity-50"></i>
+              </button>
+            </div>
+
+            <div class="relative inline-block text-left">
+              <div id="popover-M3" class="hidden absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-slate-800 border border-slate-700 p-1.5 rounded-xl shadow-2xl gap-1 z-20 whitespace-nowrap">
+                <button onclick="loadGrades('ม.3', 1)" class="px-3 py-1.5 text-xs font-bold bg-slate-900 hover:bg-emerald-500 hover:text-slate-950 rounded-lg transition">เทอม 1</button>
+                <button onclick="loadGrades('ม.3', 2)" class="px-3 py-1.5 text-xs font-bold bg-slate-900 hover:bg-emerald-500 hover:text-slate-950 rounded-lg transition">เทอม 2</button>
+              </div>
+              <button onclick="toggleTermMenu('M3')" id="btn-M3" class="grade-btn w-full py-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-sm font-bold rounded-xl transition flex items-center justify-center gap-1">
+                ม.3 <i data-lucide="chevron-up" class="w-3.5 h-3.5 opacity-50"></i>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <div>
+          <span class="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-1.5">ระดับมัธยมศึกษาตอนปลาย</span>
+          <div class="grid grid-cols-3 gap-3">
+            
+            <div class="relative inline-block text-left">
+              <div id="popover-M4" class="hidden absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-slate-800 border border-slate-700 p-1.5 rounded-xl shadow-2xl gap-1 z-20 whitespace-nowrap">
+                <button onclick="loadGrades('ม.4', 1)" class="px-3 py-1.5 text-xs font-bold bg-slate-900 hover:bg-emerald-500 hover:text-slate-950 rounded-lg transition">เทอม 1</button>
+                <button onclick="loadGrades('ม.4', 2)" class="px-3 py-1.5 text-xs font-bold bg-slate-900 hover:bg-emerald-500 hover:text-slate-950 rounded-lg transition">เทอม 2</button>
+              </div>
+              <button onclick="toggleTermMenu('M4')" id="btn-M4" class="grade-btn w-full py-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-sm font-bold rounded-xl transition flex items-center justify-center gap-1">
+                ม.4 <i data-lucide="chevron-up" class="w-3.5 h-3.5 opacity-50"></i>
+              </button>
+            </div>
+
+            <div class="relative inline-block text-left">
+              <div id="popover-M5" class="hidden absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-slate-800 border border-slate-700 p-1.5 rounded-xl shadow-2xl gap-1 z-20 whitespace-nowrap">
+                <button onclick="loadGrades('ม.5', 1)" class="px-3 py-1.5 text-xs font-bold bg-slate-900 hover:bg-emerald-500 hover:text-slate-950 rounded-lg transition">เทอม 1</button>
+                <button onclick="loadGrades('ม.5', 2)" class="px-3 py-1.5 text-xs font-bold bg-slate-900 hover:bg-emerald-500 hover:text-slate-950 rounded-lg transition">เทอม 2</button>
+              </div>
+              <button onclick="toggleTermMenu('M5')" id="btn-M5" class="grade-btn w-full py-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-sm font-bold rounded-xl transition flex items-center justify-center gap-1">
+                ม.5 <i data-lucide="chevron-up" class="w-3.5 h-3.5 opacity-50"></i>
+              </button>
+            </div>
+
+            <div class="relative inline-block text-left">
+              <div id="popover-M6" class="hidden absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-slate-800 border border-slate-700 p-1.5 rounded-xl shadow-2xl gap-1 z-20 whitespace-nowrap">
+                <button onclick="loadGrades('ม.6', 1)" class="px-3 py-1.5 text-xs font-bold bg-slate-900 hover:bg-emerald-500 hover:text-slate-950 rounded-lg transition">เทอม 1</button>
+                <button onclick="loadGrades('ม.6', 2)" class="px-3 py-1.5 text-xs font-bold bg-slate-900 hover:bg-emerald-500 hover:text-slate-950 rounded-lg transition">เทอม 2</button>
+              </div>
+              <button onclick="toggleTermMenu('M6')" id="btn-M6" class="grade-btn w-full py-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-sm font-bold rounded-xl transition flex items-center justify-center gap-1">
+                ม.6 <i data-lucide="chevron-up" class="w-3.5 h-3.5 opacity-50"></i>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="grade-display-box" class="space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <span id="display-title" class="text-amber-400">กรุณาเลือกภาคเรียนด้านบน</span>
+        </h3>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-slate-800 text-slate-400 text-xs uppercase tracking-wider">
+              <th class="py-3 px-4 font-semibold">รหัสวิชา</th>
+              <th class="py-3 px-4 font-semibold">ชื่อรายวิชา</th>
+              <th class="py-3 px-4 text-center font-semibold">หน่วยกิต</th>
+              <th class="py-3 px-4 text-right font-semibold">เกรด</th>
+            </tr>
+          </thead>
+          <tbody id="grade-table-body" class="text-slate-300 divide-y divide-slate-800/50">
+            <tr>
+              <td colspan="4" class="py-10 text-center text-slate-500 text-sm">
+                <i data-lucide="inbox" class="w-8 h-8 mx-auto mb-2 opacity-40"></i>
+                คลิกเลือกชั้นมัธยมและภาคเรียนด้านบนเพื่อแสดงเกรดทันที
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 flex justify-between items-center shadow-inner">
+        <span class="text-sm font-semibold text-slate-400">ผลการเรียนเฉลี่ยประจำภาคเรียน (GPA)</span>
+        <span id="gpa-display" class="text-xl font-mono font-bold text-slate-500 bg-slate-900 px-4 py-1 rounded-lg border border-slate-800">--</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="text-center text-[11px] text-slate-600 font-mono mt-8">
+    Benjamarachutit Grade System UX Remastered © 2026 | Powered by FastAPI & TailwindCSS
+  </p>
+
+  <script>
+    // 📦 คลังข้อมูลจำลองสำหรับทดสอบคลิกเปลี่ยนหน้าเว็บ
+    const mockGradesData = {
+      "ม.1-1": { gpa: "3.90", courses: [
+        { id: "ค21101", name: "คณิตศาสตร์พื้นฐาน 1", credit: "1.5", grade: "4.0" },
+        { id: "ว21101", name: "วิทยาศาสตร์และเทคโนโลยี 1", credit: "1.5", grade: "3.5" },
+        { id: "อ21101", name: "ภาษาอังกฤษในชีวิตประจำวัน", credit: "1.0", grade: "4.0" }
+      ]},
+      "ม.1-2": { gpa: "3.85", courses: [
+        { id: "ค21102", name: "คณิตศาสตร์พื้นฐาน 2", credit: "1.5", grade: "4.0" },
+        { id: "ว21102", name: "วิทยาศาสตร์และเทคโนโลยี 2", credit: "1.5", grade: "3.5" }
+      ]},
+      "ม.5-1": { gpa: "4.00", courses: [
+        { id: "ค32201", name: "Advanced Mathematics (Complexity Model)", credit: "2.0", grade: "4.0" },
+        { id: "ว30284", name: "Computer Science (Python Web Architecture)", credit: "1.5", grade: "4.0" },
+        { id: "อ32101", name: "English Grammar (Future Tense Special)", credit: "1.0", grade: "4.0" }
+      ]},
+      "ม.6-2": { gpa: "4.00", courses: [
+        { id: "ว33299", name: "Computer Engineering Project Overkill", credit: "2.5", grade: "4.0" }
+      ]}
+    };
+
+    // 🔄 ฟังก์ชันสลับแสดง/ซ่อนปุ่มป็อปโอเวอร์ (แก้ไขบั๊กเรียบร้อย)
+    function toggleTermMenu(id) {
+      const targetPopover = document.getElementById('popover-' + id);
+      const activeBtn = document.getElementById('btn-' + id);
+
+      // เช็กดูว่าตอนนี้กล่องปุ่มลอยมันซ่อนอยู่ไหม
+      const isClosed = targetPopover.classList.contains('hidden');
+
+      // 1. สั่งซ่อนกล่องปุ่มลอย และรีเซ็ตสีปุ่มอื่นทั้งหมดให้เป็นค่าเริ่มต้นก่อน
+      document.querySelectorAll('[id^="popover-"]').forEach(el => {
+        el.classList.add('hidden');
+        el.classList.remove('flex');
+      });
+      document.querySelectorAll('.grade-btn').forEach(btn => {
+        btn.classList.remove('border-amber-400', 'bg-slate-800', 'text-amber-400');
+        btn.classList.add('bg-slate-900', 'text-slate-100');
+      });
+
+      // 2. ถ้าตัวที่กดเมื่อกี้มันซ่อนอยู่ ให้เปิดสลับคลาสให้ทำงานแบบ Flex
+      if (isClosed) {
+        targetPopover.classList.remove('hidden');
+        targetPopover.classList.add('flex');
+        
+        // ใส่สีไฮไลต์สีทองที่ปุ่มหลัก
+        activeBtn.classList.remove('bg-slate-900', 'text-slate-100');
+        activeBtn.classList.add('border-amber-400', 'bg-slate-800', 'text-amber-400');
+      }
+    }
+
+    // 📥 ฟังก์ชันโหลดข้อมูลลงตารางเมื่อกดเลือกเทอม
+    function loadGrades(level, term) {
+      const dataKey = `${level}-${term}`;
+      const titleEl = document.getElementById('display-title');
+      const tableBody = document.getElementById('grade-table-body');
+      const gpaDisplay = document.getElementById('gpa-display');
+
+      titleEl.innerText = `🎯 รายงานผลการเรียนระดับชั้น: ${level} ภาคเรียนที่ ${term}`;
+      
+      // เลือกเสร็จปุ๊บ สั่งปิดเมนูลอยทันที
+      document.querySelectorAll('[id^="popover-"]').forEach(el => {
+        el.classList.add('hidden');
+        el.classList.remove('flex');
+      });
+      document.querySelectorAll('.grade-btn').forEach(btn => {
+        btn.classList.remove('border-amber-400', 'bg-slate-800', 'text-amber-400');
+        btn.classList.add('bg-slate-900', 'text-slate-100');
+      });
+
+      const termData = mockGradesData[dataKey];
+
+      if (termData) {
+        gpaDisplay.innerText = termData.gpa;
+        gpaDisplay.className = "text-2xl font-mono font-bold text-yellow-400 bg-yellow-500/10 px-4 py-1 rounded-lg border border-yellow-500/20";
+
+        tableBody.innerHTML = "";
+        termData.courses.forEach(course => {
+          const row = document.createElement('tr');
+          row.className = "hover:bg-slate-800/30 transition";
+          row.innerHTML = `
+            <td class="py-4 px-4 font-mono text-amber-500 text-sm">${course.id}</td>
+            <td class="py-4 px-4 font-medium text-slate-200">${course.name}</td>
+            <td class="py-4 px-4 text-center text-slate-400">${course.credit}</td>
+            <td class="py-4 px-4 text-right font-mono font-bold text-emerald-400 text-lg">${course.grade}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      } else {
+        gpaDisplay.innerText = "--";
+        gpaDisplay.className = "text-xl font-mono font-bold text-slate-500 bg-slate-900 px-4 py-1 rounded-lg border border-slate-800";
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="4" class="py-10 text-center text-slate-500 text-sm">
+              <i data-lucide="alert-circle" class="w-8 h-8 mx-auto mb-2 opacity-40"></i>
+              ไม่พบข้อมูลของภาคเรียนนี้
+            </td>
+          </tr>
+        `;
+      }
+      
+      if (typeof lucide !== 'undefined') { lucide.createIcons(); }
+    }
+
+    // สั่งรันให้ระบบไอคอนแสดงผลตอนโหลดหน้าครั้งแรก
+    if (typeof lucide !== 'undefined') { lucide.createIcons(); }
+  </script>
+</body>
+</html>
