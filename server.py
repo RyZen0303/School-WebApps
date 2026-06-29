@@ -13,12 +13,17 @@ app.mount("/js", StaticFiles(directory="js"), name="js")
 
 DB_FILE = "students.db"
 
-# ❌ ลบฟังก์ชัน init_mock_db() ตัวเก่าออกจากตรงนี้แล้ว เพราะมันย้ายไปทำงานหล่อๆ อยู่ที่ database.py แทน
+# ฟังก์ชันตัวช่วยดึง Path ไฟล์ HTML อัตโนมัติ ป้องกันบั๊ก Not Found บน Render
+def get_html_content(file_name: str) -> str:
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(current_dir, file_name)
+    with open(file_path, "r", encoding="utf-8") as f:
+        return f.read()
 
 @app.get("/", response_class=HTMLResponse)
 def get_login():
-    with open("login.html", "r", encoding="utf-8") as f:
-        return f.read()
+    # ✅ แก้ไข Path ป้องกัน Not Found
+    return get_html_content("login.html")
 
 @app.post("/login")
 def handle_login(
@@ -38,7 +43,15 @@ def handle_login(
     conn.close()
 
     if user:
-        response = RedirectResponse(url="/portal", status_code=303)
+        # ✅ แก้ไข: ใช้ JavaScript ย้ายหน้าแทน RedirectResponse เพื่อดัดหลังไม่ให้ Canva บล็อก!
+        response = HTMLResponse(
+            content="""
+            <script>
+                window.location.href = "/portal";
+            </script>
+            """,
+            status_code=200
+        )
         response.set_cookie(key="current_student_id", value=username.strip(), httponly=True)
         return response
     else:
@@ -46,13 +59,13 @@ def handle_login(
 
 @app.get("/portal", response_class=HTMLResponse)
 def get_portal():
-    with open("index.html", "r", encoding="utf-8") as f:
-        return f.read()
+    # ✅ แก้ไข Path ป้องกัน Not Found
+    return get_html_content("index.html")
 
 @app.get("/grade-auth", response_class=HTMLResponse)
 def get_grade_auth():
-    with open("grade-auth.html", "r", encoding="utf-8") as f:
-        return f.read()
+    # ✅ แก้ไข Path ป้องกัน Not Found
+    return get_html_content("grade-auth.html")
 
 @app.post("/grade-auth/verify")
 def verify_grade_auth(
@@ -80,16 +93,24 @@ def verify_grade_auth(
     conn.close()
     
     if user:
-        return RedirectResponse(url="/grades-view", status_code=303)
+        # ✅ แก้ไข: เปลี่ยนจาก Redirect เป็น JavaScript เพื่อทะลวง iframe Canva ด่านที่ 2
+        return HTMLResponse(
+            content="""
+            <script>
+                window.location.href = "/grades-view";
+            </script>
+            """,
+            status_code=200
+        )
     else:
         return HTMLResponse(content="<h1 style='color:red; text-align:center; margin-top:50px;'>❌ วันเกิดไม่ถูกต้องสำหรับรหัสประจำตัวนี้!</h1>", status_code=401)
 
 @app.get("/grades-view", response_class=HTMLResponse)
 def get_grades_view():
-    with open("grades-view.html", "r", encoding="utf-8") as f:
-        return f.read()
+    # ✅ แก้ไข Path ป้องกัน Not Found
+    return get_html_content("grades-view.html")
 
-# 🎯 [เพิ่มใหม่] เส้น API สำหรับส่งเกรดเฉลี่ยรายเทอมไปดึงวาดกราฟใน index.html
+# 🎯 เส้น API สำหรับส่งเกรดเฉลี่ยรายเทอมไปดึงวาดกราฟใน index.html
 @app.get("/api/student-gpa")
 def get_gpa_data(request: Request):
     student_id = request.cookies.get("current_student_id")
