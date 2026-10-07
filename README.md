@@ -1,6 +1,8 @@
 # School-WebApps
 A repository for my school WebApps project, aim to modernize the current one.
 
+Status: Unfinished
+
 | Project Overview: Modernizing the Benjamarachutit Ratchaburi School Grade Inquiry System |
 |:---|
 
